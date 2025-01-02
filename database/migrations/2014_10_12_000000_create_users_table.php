@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -27,6 +29,16 @@ return new class extends Migration
             // Foreign key constraint
             $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade');
         });
+
+        // Insert the admin user
+        DB::table('users')->insert([
+            'name' => 'Shehzad Khan',
+            'email' => 'khanshehzad2001@gmail.com',
+            'password' => Hash::make('khan'),
+            'is_admin' => true,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 
     /**
